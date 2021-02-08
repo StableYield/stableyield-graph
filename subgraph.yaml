@@ -1,0 +1,50 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+    #/***********************************|
+    #          StableYield Vault         |
+    #___________________________________*/
+  - kind: ethereum/contract
+    name: StableYieldVaultWithCreditDelegation
+    network: mainnet
+    source:
+      address: "0x35E153Fa6166d427260d677Ecc8F1397765C5c2C"
+      abi: StableYieldVaultWithCreditDelegation
+      startBlock: 11741301
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Vault
+        - User
+        - Swap
+        - Proposal
+        - Vote
+        - Loan
+        - LoanRepayment
+        - CreditWithdrawn
+        - CreditRepayed
+      abis:
+        - name: StableYieldVaultWithCreditDelegation
+          file: ./abis/StableYieldVaultWithCreditDelegation.json
+      eventHandlers:
+        # General
+        - event: DepositCollateral(uint256,uint256,address)
+          handler: handleDepositCollateral
+        - event: WithdrawCollateral(uint256,uint256,address)
+          handler: handleWithdrawCollateral
+        - event: VaultCollateralSwap(address,address,uint256,uint256,uint256,address,uint256)
+          handler: handleVaultCollateralSwap
+        # Governance
+        - event: SubmitProposal(address,address,uint256,uint256,address,uint256,uint256,string,uint256)
+          handler: handleSubmitProposal
+        - event: SubmitVote(uint256,uint256,address,uint8,uint256)
+          handler: handleSubmitVote
+        - event: ProcessProposal(uint256,uint256,bool)
+          handler: handleProcessProposal
+        - event: ProcessLoanRepayment(address,uint256,uint256)
+          handler: handleProcessLoanRepayment
+      file: ./src/stableyieldvault.ts
+ 

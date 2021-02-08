@@ -1,0 +1,21 @@
+{
+  "name": "stableyield-subgraph",
+  "license": "MIT",
+  "version": "0.0.1",
+  "author": "StableYield",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "build:all": "yarn build ; yarn build:citadel",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/StableYield/v0",
+    "deploy:test": "graph deploy stableyield/v0 --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ ",
+    "create-local": "graph create --node http://localhost:8020/ StableYield/v0",
+    "remove-local": "graph remove --node http://localhost:8020/ StableYield/v0",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 StableYield/v0",
+    "setup": "yarn create-local ; yarn deploy-local"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.18.0",
+    "@graphprotocol/graph-ts": "0.18.0"
+  }
+}

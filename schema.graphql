@@ -1,0 +1,92 @@
+type Vault @entity {
+  id: ID!
+  name: String
+  version: BigInt!
+}
+
+type User @entity {
+  id: ID!
+  address: Bytes
+  shares: BigInt
+  createdAt: BigInt
+}
+
+type Swap @entity {
+  id: ID!
+  user: Bytes
+  tokenFrom: Bytes
+  tokenTo: Bytes
+  apyFrom: BigInt
+  apyTo: BigInt
+  timestamp: BigInt
+}
+
+type Proposal @entity {
+  id: ID!
+  borrower: Bytes
+  borrowAsset: Bytes
+  borrowAmount: BigInt
+  interestAmount: BigInt
+  interestRateMode: BigInt
+  startingPeriod: BigInt
+  yesVotes: BigInt
+  yesCount: BigInt
+  noVotes: BigInt
+  flags: [Boolean!]
+  details: String
+  votesByMember: [Vote!]
+  votesVoteData: [YesVoteData!]
+  createdAt: BigInt
+}
+
+type Loan @entity {
+  id: ID!
+  borrower: Bytes
+  asset: Bytes
+  amount: BigInt
+  interest: BigInt
+  interestRateMode: BigInt
+  loanStart: BigInt
+  loanEnd: BigInt
+  withdrawn: BigInt
+  repayed: BigInt
+  createdAt: BigInt
+}
+
+type Vote @entity {
+  id: ID!
+  user: Bytes
+  proposalId: BigInt
+  proposalIndex: BigInt
+  vote: Boolean
+  maxSharesStaked: BigInt
+  createdAt: BigInt
+}
+
+type YesVoteData @entity {
+  id: ID!
+  user: Bytes
+  sharesLocked: BigInt
+  repaymentProcessed: Boolean
+}
+
+type Borrower @entity {
+  id: ID!
+  address: Bytes
+  interest: BigInt
+  interestRateMode: BigInt
+  creditWithdrawn: BigInt
+  creditDeposited: BigInt
+  borrowAsset: Bytes
+}
+
+type LoanRepayment @entity {
+  id: ID!
+  address: Bytes
+  interest: BigInt
+  interestRateMode: BigInt
+  creditWithdrawn: BigInt
+  creditDeposited: BigInt
+  borrowAsset: Bytes
+  createdAt: BigInt
+}
